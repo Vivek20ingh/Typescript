@@ -6,12 +6,13 @@ import shortid from "shortid";
 
 
 const Form = () => {
-    const [object, setobject]= useState({ unique_id: null, name: String, city: String, age: Number });
+    type person={ unique_id: null, name: String, city: String, age: Number };
+    const [object, setobject]= useState(person);
     const [masterData, setmasterData] = useState(Array({ unique_id: null, name: String, city: String, age: Number }))
 
-    const handleSubmit = (evt) =>  {
+    const handleSubmit = (evt):void =>  {
 
-        evt.preventDefault();
+        evt.preventDefault(); 
         let key = shortid.generate();
         object.unique_id = key;
         setobject(object)
@@ -22,19 +23,19 @@ const Form = () => {
 
     }
 
-    const handleDelete = (idx:String) => {
+    const handleDelete = (idx:String):void => {
         console.log(idx);
         let newidx = masterData.findIndex(obj => obj.unique_id === idx);
         masterData.splice(newidx, 1);
         setmasterData([...masterData])
     }
 
-    const handleUpdate = (idx:String) => {
+    const handleUpdate = (idx:String) : void => {
         let newidx = masterData.findIndex(obj => obj.unique_id === idx);
         setobject({ unique_id: idx, name: masterData[newidx].name, city: masterData[newidx].city, age: masterData[newidx].age })
     }
 
-    const handleEdit = (e) => {
+    const handleEdit = (e) : void => {
         e.preventDefault()
         let obj1 = object
         let newidx = masterData.findIndex(obj => obj.unique_id === obj1.unique_id);
@@ -70,7 +71,6 @@ const Form = () => {
             </form>
 
             <Listview masterData={masterData} handleDelete={handleDelete} handleUpdate={handleUpdate} />
-
 
         </div>
     );
