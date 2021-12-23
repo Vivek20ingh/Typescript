@@ -1,22 +1,50 @@
-import { ListGroup } from "react-bootstrap";
+import { styled } from '@mui/material/styles';
+import Grid from '@mui/material/Grid';
+import Paper from '@mui/material/Paper';
+import Box from '@mui/material/Box';
+import Stack from '@mui/material/Stack';
+import IconButton from '@mui/material/IconButton';
+import DeleteIcon from '@mui/icons-material/Delete';
+import Button from '@mui/material/Button';
+
+const Item = styled(Paper)(({ theme }) => ({
+    ...theme.typography.body2,
+    padding: theme.spacing(1),
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+}));
 
 const Listview = ({ masterData, handleDelete, handleUpdate }) => {
     return (
 
         <div className="split right">
-            {masterData.map((d, idx) =>
-                <ListGroup.Item key={d.unique_id}
-                    as="li" className="d-flex justify-content-between align-items-start" react js >
-                    <div className="ms-2 me-auto">
-                        <div className="fw-bold">NAME: {d.name}</div>
-                        <div className="fw-bold">CITY: {d.city}</div>
-                        <div className="fw-bold">AGE:   {d.age}</div>
-                    </div>
-                    <button onClick={() => handleDelete(d.unique_id)}>Delete</button>
-                    <button onClick={() => handleUpdate(d.unique_id)} >Update</button>
-                </ListGroup.Item>)}
+            <Box sx={{ width: '100%' }}>
+                {masterData.map((d, idx) =>
+                    <Grid key={d.unique_id} container rowSpacing={1} columnSpacing={1}>
+                        <Grid item xs={3}>
+                            <Item>{d.name}</Item>
+                        </Grid>
+                        <Grid item xs={3}>
+                            <Item>{d.city}</Item>
+                        </Grid>
+                        <Grid item xs={3}>
+                            <Item>{d.age}</Item>
+                        </Grid>
+                        <Button onClick={() => handleUpdate(d.unique_id)}  size="small">UP</Button>
+                        <Stack direction="row" alignItems="center" spacing={1}>
+                            <IconButton aria-label="delete" size="large">
+                                <DeleteIcon fontSize="inherit" onClick={() => handleDelete(d.unique_id)}/>
+                            </IconButton>
+                        </Stack>
+                    </Grid>)}
+            </Box>
         </div>
     )
 }
 
 export default Listview;
+
+
+
+
+
