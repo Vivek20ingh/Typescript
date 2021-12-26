@@ -6,6 +6,8 @@ import Stack from '@mui/material/Stack';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Button from '@mui/material/Button';
+import { useSelector} from "react-redux";
+import * as types from "../redux/types";
 
 const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
@@ -14,12 +16,14 @@ const Item = styled(Paper)(({ theme }) => ({
     color: theme.palette.text.secondary,
 }));
 
-const Listview = ({ masterData, handleDelete, handleUpdate }) => {
+const Listview = ({ handleDelete, handleUpdate }) => {
+
+    const { list } = useSelector((state: types.PersonState) => state);
     return (
 
         <div className="split right">
             <Box sx={{ width: '100%' }}>
-                {masterData.map((d, idx) =>
+                {list.map((d, idx) =>
                     <Grid key={d.unique_id} container rowSpacing={1} columnSpacing={1}>
                         <Grid item xs={3}>
                             <Item>{d.name}</Item>
@@ -30,10 +34,10 @@ const Listview = ({ masterData, handleDelete, handleUpdate }) => {
                         <Grid item xs={3}>
                             <Item>{d.age}</Item>
                         </Grid>
-                        <Button onClick={() => handleUpdate(d.unique_id)}  size="small">UP</Button>
+                        <Button onClick={() => handleUpdate(d.unique_id)} size="small">UP</Button>
                         <Stack direction="row" alignItems="center" spacing={1}>
                             <IconButton aria-label="delete" size="large">
-                                <DeleteIcon fontSize="inherit" onClick={() => handleDelete(d.unique_id)}/>
+                                <DeleteIcon fontSize="inherit" onClick={() => handleDelete(d.unique_id)} />
                             </IconButton>
                         </Stack>
                     </Grid>)}

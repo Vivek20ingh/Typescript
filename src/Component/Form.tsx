@@ -11,44 +11,57 @@ import FormControl from '@mui/material/FormControl';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import SaveIcon from '@mui/icons-material/Save';
 import Button from '@mui/material/Button';
-
-
+import { Dispatch } from "redux";
+import { useSelector, useDispatch } from "react-redux";
+import * as types from '../redux/types'
 
 
 const Form = () => {
-    const Person = { unique_id: null, name: String, city: String, age: Number }
-    const [object, setobject] = useState<typeof Person>(Person);
-    const [masterData, setmasterData] = useState<typeof Person[]>([])
+
+    const dispatch: Dispatch<any> = useDispatch();
+    const { list } = useSelector((state: types.PersonState) => state);
+    const Person = { unique_id: "", name: "", city: "", age: 0 }
+    const [object, setobject] = useState<types.Person>(Person);
+
 
     const handleSubmit = (evt: Event): void => {
 
         evt.preventDefault();
         let key: String = shortid.generate();
         object.unique_id = key;
-        setobject(object)
-        setmasterData([...masterData, object]);
+        list.push(object);
+        dispatch({
+            type: "SAVE",
+            list: list
+        });
         setobject(Person)
 
     }
 
     const handleDelete = (idx: String): void => {
-        let newidx = masterData.findIndex(obj => obj.unique_id === idx);
-        masterData.splice(newidx, 1);
-        setmasterData([...masterData])
+        let newidx = list.findIndex(obj => obj.unique_id === idx);
+        list.splice(newidx, 1);
+        dispatch({
+            type: "DELETE",
+            list: list,
+        });
     }
 
     const handleUpdate = (idx: String): void => {
-        let newidx = masterData.findIndex(obj => obj.unique_id === idx);
-        setobject({ unique_id: idx, name: masterData[newidx].name, city: masterData[newidx].city, age: masterData[newidx].age })
-        console.log(typeof (newidx));
+        let newidx = list.findIndex(obj => obj.unique_id === idx);
+        setobject({ unique_id: idx, name: list[newidx].name, city: list[newidx].city, age: list[newidx].age })
+
     }
 
     const handleEdit = (e: Event): void => {
         e.preventDefault()
         let obj1 = object
-        let newidx = masterData.findIndex(obj => obj.unique_id === obj1.unique_id);
-        masterData[newidx] = obj1;
-        setmasterData(masterData)
+        let newidx = list.findIndex(obj => obj.unique_id === obj1.unique_id);
+        list[newidx] = obj1;
+        dispatch({
+            type: 'UPDATE',
+            list: list,
+        });
         setobject(Person)
     }
     return (
@@ -61,10 +74,10 @@ const Form = () => {
                         startAdornment={
                             <InputAdornment position="start">
                                 <AccountCircle />
-                            </InputAdornment>
-                        }
+                            </InputAdornment>}
+
                         value={object.name}
-                        onChange={e => { setobject({ ...object, name: e.target.value }) }}/>
+                        onChange={e => { setobject({ ...object, name: e.target.value }) }} />
                 </FormControl>
 
                 <FormControl variant="standard">
@@ -93,22 +106,19 @@ const Form = () => {
 
                 <div>
                     <Button
-                        color="secondary" variant="contained"  startIcon={<SaveIcon />}
-                        onClick={object.unique_id == null ? (evt: Event) => handleSubmit(evt) : (e: Event) => handleEdit(e)} >
-                        {object.unique_id == null ? "Submit" : "Update"}
+                        color="secondary" variant="contained" startIcon={<SaveIcon />}
+                        onClick={object.unique_id == "" ? (evt: Event) => handleSubmit(evt) : (e: Event) => handleEdit(e)} >
+                        {object.unique_id == "" ? "Submit" : "Update"}
                     </Button>
                 </div>
-
             </Box>
 
-
-            <Listview masterData={masterData} handleDelete={handleDelete} handleUpdate={handleUpdate} />
-
+            <Listview handleDelete={handleDelete} handleUpdate={handleUpdate} />
         </div>
     );
 }
 
-export { Form };
+export {Form};
 
 
 
