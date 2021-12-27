@@ -8,11 +8,17 @@ interface Person {
 
 type PersonState = {
     list: Person[];
+    object1:Person;
+    index:number,
+    idx: String,
 };
 
 type PersonAction = {
     type: string;
     list: Person[];
+    object1:Person;
+    index:number;
+    idx: String,
 };
 
 type DispatchType = (args: PersonAction) =>  PersonAction;

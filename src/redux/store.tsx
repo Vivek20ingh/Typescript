@@ -1,6 +1,6 @@
-import { createStore , Store } from "redux";
+import { createStore ,Store } from "redux";
 
-import { ListReducer } from "./action";
+import ListReducer  from "./action";
 import * as types from './types';
 
 

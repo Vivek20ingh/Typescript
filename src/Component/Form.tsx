@@ -19,31 +19,25 @@ import * as types from '../redux/types'
 const Form = () => {
 
     const dispatch: Dispatch<any> = useDispatch();
-    const { list } = useSelector((state: types.PersonState) => state);
+    const {list} = useSelector((state: types.PersonState) => state);
     const Person = { unique_id: "", name: "", city: "", age: 0 }
     const [object, setobject] = useState<types.Person>(Person);
 
 
     const handleSubmit = (evt: Event): void => {
-
         evt.preventDefault();
-        let key: String = shortid.generate();
-        object.unique_id = key;
-        list.push(object);
         dispatch({
             type: "SAVE",
-            list: list
+            object1:object
         });
         setobject(Person)
 
     }
 
     const handleDelete = (idx: String): void => {
-        let newidx = list.findIndex(obj => obj.unique_id === idx);
-        list.splice(newidx, 1);
         dispatch({
             type: "DELETE",
-            list: list,
+            idx:idx
         });
     }
 
@@ -55,12 +49,9 @@ const Form = () => {
 
     const handleEdit = (e: Event): void => {
         e.preventDefault()
-        let obj1 = object
-        let newidx = list.findIndex(obj => obj.unique_id === obj1.unique_id);
-        list[newidx] = obj1;
         dispatch({
             type: 'UPDATE',
-            list: list,
+            object1:object,
         });
         setobject(Person)
     }
