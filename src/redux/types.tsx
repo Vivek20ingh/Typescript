@@ -8,9 +8,6 @@ interface Person {
 
 type PersonState = {
     list: Person[];
-    object1:Person;
-    index:number,
-    idx: String,
 };
 
 type PersonAction = {

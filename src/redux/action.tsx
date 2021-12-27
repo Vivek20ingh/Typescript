@@ -3,14 +3,7 @@ import shortid from "shortid";
 import * as type from './types'
 
 const initialState: type.PersonState = {
-    list: [],
-    object1:{ unique_id: "",
-        name: "",
-        city: "",
-        age: 0
-    },
-    index:0,
-    idx: "",
+    list: []
 }
 
 const ListReducer = (state: type.PersonState = initialState, action:type.PersonAction): type.PersonState => {

@@ -11,6 +11,7 @@ import FormControl from '@mui/material/FormControl';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import SaveIcon from '@mui/icons-material/Save';
 import Button from '@mui/material/Button';
+
 import { Dispatch } from "redux";
 import { useSelector, useDispatch } from "react-redux";
 import * as types from '../redux/types'
@@ -22,9 +23,7 @@ const Form = () => {
     const {list} = useSelector((state: types.PersonState) => state);
     const Person = { unique_id: "", name: "", city: "", age: 0 }
     const [object, setobject] = useState<types.Person>(Person);
-
-
-    const handleSubmit = (evt: Event): void => {
+    const handleSubmit = (evt: React.MouseEvent): void => {
         evt.preventDefault();
         dispatch({
             type: "SAVE",
@@ -47,7 +46,7 @@ const Form = () => {
 
     }
 
-    const handleEdit = (e: Event): void => {
+    const handleEdit = (e: React.MouseEvent): void => {
         e.preventDefault()
         dispatch({
             type: 'UPDATE',
@@ -98,7 +97,7 @@ const Form = () => {
                 <div>
                     <Button
                         color="secondary" variant="contained" startIcon={<SaveIcon />}
-                        onClick={object.unique_id == "" ? (evt: Event) => handleSubmit(evt) : (e: Event) => handleEdit(e)} >
+                        onClick={object.unique_id == "" ? (evt: React.MouseEvent) => handleSubmit(evt) : (e: Event) => handleEdit(e)} >
                         {object.unique_id == "" ? "Submit" : "Update"}
                     </Button>
                 </div>
