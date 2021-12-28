@@ -6,27 +6,19 @@ interface Person {
     age: Number;
 };
 
+type Persondelete=String
 
-type PersonState = {
+
+
+interface Actionlist {
     list: Person[];
-};
-
-type PersonAction = {
-  
-    object1:Person;
-
-};
-
-interface ListModel {
-    list: Person[];
-    addnote: Action<ListModel, PersonAction>;
+    addnote: Action<Actionlist, Person>;
+    updatenote: Action<Actionlist, Person>;
+    deletenote: Action<Actionlist, Persondelete>;
 }
 
-// interface StoreModel {
-//     model: ListModel;
-// }
-
-type DispatchType = (args: PersonAction) =>  PersonAction;
 
 
-export type { Person, PersonState, PersonAction, DispatchType,ListModel };
+
+
+export type { Person,Actionlist };

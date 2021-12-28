@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import './Styles.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Listview from './Listview'
-import shortid from "shortid";
 import Box from '@mui/material/Box';
 import Input from '@mui/material/Input';
 import InputLabel from '@mui/material/InputLabel';
@@ -20,38 +19,36 @@ import { useStoreActions, useStoreState } from '../easy_peasy/store'
 const Form = () => {
 
     const addnote = useStoreActions((actions) => actions.addnote);
+    const updatenote = useStoreActions((actions) => actions.updatenote);
+    const deletenote = useStoreActions((actions) => actions.deletenote);
     const list = useStoreState((state) => state.list);
 
     const Person = { unique_id: "", name: "", city: "", age: 0 }
     const [object, setobject] = useState<types.Person>(Person);
-    
+
     const handleSubmit = (evt: React.MouseEvent): void => {
         evt.preventDefault();
-        console.log(object);
         addnote(object)
-       console.log(list)
+        setobject(Person)
+        console.log(object);
+        console.log(list)
 
     }
 
     const handleDelete = (idx: String): void => {
-        // dispatch({
-        //     type: "DELETE",
-        //     idx:idx
-        // });
+        deletenote(idx)
     }
 
     const handleUpdate = (idx: String): void => {
-        // let newidx = list.findIndex(obj => obj.unique_id === idx);
-        // setobject({ unique_id: idx, name: list[newidx].name, city: list[newidx].city, age: list[newidx].age })
+        let newidx = list.findIndex(obj => obj.unique_id === idx);
+        console.log(newidx);
+        setobject({ unique_id: idx, name: list[newidx].name, city: list[newidx].city, age: list[newidx].age })
 
     }
 
     const handleEdit = (e: React.MouseEvent): void => {
         e.preventDefault()
-        // dispatch({
-        //     type: 'UPDATE',
-        //     object1:object,
-        // });
+        updatenote(object)
         setobject(Person)
     }
     return (
@@ -108,7 +105,7 @@ const Form = () => {
     );
 }
 
-export {Form};
+export { Form };
 
 
 

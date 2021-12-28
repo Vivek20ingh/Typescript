@@ -6,8 +6,7 @@ import Stack from '@mui/material/Stack';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Button from '@mui/material/Button';
-import * as types from "../easy_peasy/types";
-import { useStoreState } from "easy-peasy";
+import {useStoreState } from '../easy_peasy/store'
 
 const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
@@ -18,7 +17,7 @@ const Item = styled(Paper)(({ theme }) => ({
 
 const Listview = ({ handleDelete, handleUpdate }) => {
 
-     const list = useStoreState((state: types.PersonState) => state.list);
+     const list = useStoreState((state) => state.list);
     return (
 
         <div className="split right">
