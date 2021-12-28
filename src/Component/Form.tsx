@@ -11,47 +11,47 @@ import FormControl from '@mui/material/FormControl';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import SaveIcon from '@mui/icons-material/Save';
 import Button from '@mui/material/Button';
+import * as types from '../easy_peasy/types'
+import { useStoreActions, useStoreState } from '../easy_peasy/store'
 
-import { Dispatch } from "redux";
-import { useSelector, useDispatch } from "react-redux";
-import * as types from '../redux/types'
+
 
 
 const Form = () => {
 
-    const dispatch: Dispatch<any> = useDispatch();
-    const {list} = useSelector((state: types.PersonState) => state);
+    const addnote = useStoreActions((actions) => actions.addnote);
+    const list = useStoreState((state) => state.list);
+
     const Person = { unique_id: "", name: "", city: "", age: 0 }
     const [object, setobject] = useState<types.Person>(Person);
+    
     const handleSubmit = (evt: React.MouseEvent): void => {
         evt.preventDefault();
-        dispatch({
-            type: "SAVE",
-            object1:object
-        });
-        setobject(Person)
+        console.log(object);
+        addnote(object)
+       console.log(list)
 
     }
 
     const handleDelete = (idx: String): void => {
-        dispatch({
-            type: "DELETE",
-            idx:idx
-        });
+        // dispatch({
+        //     type: "DELETE",
+        //     idx:idx
+        // });
     }
 
     const handleUpdate = (idx: String): void => {
-        let newidx = list.findIndex(obj => obj.unique_id === idx);
-        setobject({ unique_id: idx, name: list[newidx].name, city: list[newidx].city, age: list[newidx].age })
+        // let newidx = list.findIndex(obj => obj.unique_id === idx);
+        // setobject({ unique_id: idx, name: list[newidx].name, city: list[newidx].city, age: list[newidx].age })
 
     }
 
     const handleEdit = (e: React.MouseEvent): void => {
         e.preventDefault()
-        dispatch({
-            type: 'UPDATE',
-            object1:object,
-        });
+        // dispatch({
+        //     type: 'UPDATE',
+        //     object1:object,
+        // });
         setobject(Person)
     }
     return (
