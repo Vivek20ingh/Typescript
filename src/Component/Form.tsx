@@ -15,10 +15,11 @@ import ConfirmDialog from "./ConfirmDialog";
 import {APPtx}from './Context/Context'
 
 
+
 const Form = () => {
 
     const Person = { unique_id: "", name: "", city: "", age: 0 }
-    const {list ,addnote,updatenote,setpopup,setid,deletenote,open1}= useContext(APPtx)
+    const {list ,addnote,updatenote,setpopup,setid,deletenote,open1,id}= useContext(APPtx)
     
     const [object, setobject] = useState<types.Person>(Person);
     const handleSubmit = (): void => {
@@ -31,6 +32,8 @@ const Form = () => {
         // deletenote(idx)
         setid(idx);
         console.log(open1);
+        console.log(id);
+
     }
 
     const handleUpdate = (idx: string,): void => {
@@ -99,7 +102,8 @@ const Form = () => {
     );
 }
 
-export { Form };
+export default Form
+
 
 
 

@@ -1,10 +1,11 @@
 
 import React, { useState } from "react";
-import { Form } from "./Component/Form";
+import Form  from "./Component/Form";
 
 import ListContext from './Component/Context/Context'
 import { APPtx } from './Component/Context/Context'
 import shortid from "shortid";
+import * as types from  './Component/Context/Context'
 
 
 function App() {
@@ -12,7 +13,7 @@ function App() {
   const  [ open1, setopen1]= useState(ListContext.open1);
   const [id,setid1]=useState(ListContext.id)
 
-  const addnote = (object) => {
+  const addnote = (object:types.Person):void => {
     let key: string = shortid.generate();
     let newobject = object;
     newobject.unique_id = key;
@@ -20,7 +21,7 @@ function App() {
 
   }
 
-  const updatenote =(object)=>{
+  const updatenote =(object:types.Person):void=>{
     let newlist = list;
     let newidx1 = list.findIndex(obj => obj.unique_id === object.unique_id);
     newlist[newidx1]=object;
@@ -28,15 +29,15 @@ function App() {
 
   }
 
-  const setpopup =(open)=>{
+  const setpopup =(open:boolean):void=>{
     setopen1(open)
   }
 
-  const setid =(idx)=>{
+  const setid =(idx:string):void=>{
     setid1(idx);
   }
 
-  const deletenote =(idx)=>{
+  const deletenote =(idx:string):void=>{
     let newidx = list.findIndex(obj => obj.unique_id === idx);
     let newlist=list
     newlist.splice(newidx,1)
@@ -45,7 +46,7 @@ function App() {
 
   return (
     <div className="App">
-      <APPtx.Provider value={{ list, addnote, updatenote ,setpopup,setid,deletenote}} >
+      <APPtx.Provider value={{ list, addnote, updatenote ,setpopup,setid,deletenote,open1,id}} >
         <Form />
       </APPtx.Provider>
     </div>
