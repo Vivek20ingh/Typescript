@@ -6,7 +6,8 @@ import Stack from '@mui/material/Stack';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Button from '@mui/material/Button';
-import {useStoreState } from '../easy_peasy/store'
+import { useStoreState } from '../easy_peasy/store'
+
 
 const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
@@ -17,7 +18,7 @@ const Item = styled(Paper)(({ theme }) => ({
 
 const Listview = ({ handleDelete, handleUpdate }) => {
 
-     const list = useStoreState((state) => state.list);
+    const list = useStoreState((state) => state.list);
     return (
 
         <div className="split right">
@@ -36,7 +37,8 @@ const Listview = ({ handleDelete, handleUpdate }) => {
                         <Button onClick={() => handleUpdate(d.unique_id)} size="small">UP</Button>
                         <Stack direction="row" alignItems="center" spacing={1}>
                             <IconButton aria-label="delete" size="large">
-                                <DeleteIcon fontSize="inherit" onClick={() => handleDelete(d.unique_id)} />
+                                <DeleteIcon fontSize="inherit" onClick={() => handleDelete(d.unique_id)
+                                } />
                             </IconButton>
                         </Stack>
                     </Grid>)}
@@ -46,6 +48,8 @@ const Listview = ({ handleDelete, handleUpdate }) => {
 }
 
 export default Listview;
+
+
 
 
 

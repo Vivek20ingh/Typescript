@@ -5,8 +5,10 @@ import * as types from './types'
 
 const model: types.Actionlist = {
     list: [],
+    open1:false,
+    id:"",
     addnote: action((state, payload) => {
-        let key: String = shortid.generate();
+        let key: string = shortid.generate();
         let newobject: types.Person = payload;
         newobject.unique_id = key;
         state.list.push(newobject);
@@ -25,8 +27,16 @@ const model: types.Actionlist = {
         let newlist = state.list;
         newlist[newidx1] = payload;
         state.list = newlist;
-
     }),
+
+    setpopup:action((state, payload) => {
+        state.open1=payload
+    }),
+
+    setid: action((state, payload) => {
+        state.id=payload
+    }),
+  
 };
 
 
