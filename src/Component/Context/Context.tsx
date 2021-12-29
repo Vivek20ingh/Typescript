@@ -30,8 +30,8 @@ const ListContext:listInterface= {
     setpopup:()=>{},
     setid:()=>{}
 };
-export const APPtx = createContext<listInterface>(ListContext);
 
+export const APPtx = createContext<listInterface>(ListContext);
 
 export default ListContext;
 export type { Person };

@@ -20,8 +20,8 @@ const Item = styled(Paper)(({ theme }) => ({
 const Listview = ({ handleDelete, handleUpdate }) => {
 
     const {list}= useContext(APPtx)
+    
     return (
-
         <div className="split right">
             <Box sx={{ width: '100%' }}>
                 {list.map((d, idx) =>
