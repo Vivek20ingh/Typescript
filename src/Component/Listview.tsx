@@ -6,7 +6,8 @@ import Stack from '@mui/material/Stack';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Button from '@mui/material/Button';
-import { useStoreState } from '../easy_peasy/store'
+import { useContext } from 'react';
+import {APPtx} from './Context/Context'
 
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -18,7 +19,7 @@ const Item = styled(Paper)(({ theme }) => ({
 
 const Listview = ({ handleDelete, handleUpdate }) => {
 
-    const list = useStoreState((state) => state.list);
+    const {list}= useContext(APPtx)
     return (
 
         <div className="split right">

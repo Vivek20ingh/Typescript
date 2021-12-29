@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState ,useContext} from "react";
 import './Styles.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Listview from './Listview'
@@ -10,29 +10,27 @@ import FormControl from '@mui/material/FormControl';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import SaveIcon from '@mui/icons-material/Save';
 import Button from '@mui/material/Button';
-import * as types from '../easy_peasy/types'
-import { useStoreState, useStoreActions } from '../easy_peasy/store'
+import * as types from './Context/Context'
 import ConfirmDialog from "./ConfirmDialog";
+import {APPtx}from './Context/Context'
 
 
 const Form = () => {
 
     const Person = { unique_id: "", name: "", city: "", age: 0 }
-    const addnote = useStoreActions((actions) => actions.addnote);
-    const updatenote = useStoreActions((actions) => actions.updatenote);
-    const setpopup = useStoreActions((actions) => actions.setpopup);
-    const setid = useStoreActions((actions) => actions.setid);
-    const list = useStoreState((state) => state.list);
-
+    const {list ,addnote,updatenote,setpopup,setid,deletenote,open1}= useContext(APPtx)
+    
     const [object, setobject] = useState<types.Person>(Person);
     const handleSubmit = (): void => {
-        addnote(object)
+        addnote(object);
         setobject(Person)
     }
 
     const handleDelete = (idx: string): void => {
         setpopup(true);
+        // deletenote(idx)
         setid(idx);
+        console.log(open1);
     }
 
     const handleUpdate = (idx: string,): void => {

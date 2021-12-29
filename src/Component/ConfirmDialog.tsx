@@ -1,5 +1,5 @@
 import React from 'react';
-import { useStoreState, useStoreActions } from '../easy_peasy/store'
+import { useContext } from 'react';
 
 import {
   Dialog,
@@ -12,19 +12,18 @@ import {
   Typography,
 } from '@material-ui/core';
 import { Close } from '@material-ui/icons';
+import {APPtx}from './Context/Context'
 
 
 const ConfirmDialog = () => {
-  const open1 = useStoreState((state) => state.open1);
-  const idx = useStoreState((state) => state.id);
-  const setpopup = useStoreActions((actions) => actions.setpopup);
-  const deletenote = useStoreActions((actions) => actions.deletenote);
+ 
+  const {id,setpopup,deletenote,open1}= useContext(APPtx)
 
   const handleCancel = (): void => {
     setpopup(false);
   }
   const handleConfirmDelete = (): void => {
-    deletenote(idx);
+    deletenote(id);
     setpopup(false);
   }
   return (
@@ -36,7 +35,7 @@ const ConfirmDialog = () => {
         </IconButton>
       </Box>
       <DialogContent>
-        <Typography>Are you sure want to delete list with unique_id {idx}</Typography>
+        <Typography>Are you sure want to delete list with unique_id {id}</Typography>
       </DialogContent>
       <DialogActions>
         <Button onClick={() => handleCancel()} color="primary" variant="contained">
