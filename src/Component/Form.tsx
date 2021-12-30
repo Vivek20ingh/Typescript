@@ -13,13 +13,17 @@ const [myconfig1,setmyconfig1] = useState(myconfig)
     myconfig.values = { ...myconfig, myTextField: 12 };
     setmyconfig1(myconfig)
     console.log(myconfig)
+
+    
   }
+  const p=1
   return (
     <div>
       <ReactForm
         config={myconfig1}
         myInitialValues={myInitialValues}
         validationSchema={formValidation}
+        values={p}
         onSubmit={(values: string) => setid(values)}
       /></div>)
 }
