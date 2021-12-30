@@ -1,19 +1,24 @@
-import {ReactForm} from 'react-forms'
+import { ReactForm } from 'react-forms'
 import React from 'react'
+import { myconfig ,formValidation, actionConfig} from './myconfig'
 
 export const MyReactComponent = () => {
-const myConfig = [{
-type : 'text',
-valueKey : 'myTextField',
-fieldProps : { label : 'Sample Text Field' , fullWidth: true } ,
-// fieldProps:{ ...textFieldProps },
-styles : { margin : '0 auto'}
-} ]
-const myInitialValues = [{ myTextField : '' }]
-return ( <div>
-<ReactForm
-config={myConfig}
-// initialValues={myInitialValue}
-onSubmit = {(values : object) => {console.log(values)}}  
-/></div> )
+    // const config = myconfig
+    
+   const myInitialValues = [{ myTextField: 12 }]
+  const pios= [{valueKey : "hs"}]
+    const setid =(idx:string):void=>{
+        console.log(idx) 
+        
+        
+
+      }
+    return (
+        <div>
+            <ReactForm
+                config={myconfig}
+                myInitialValues={myInitialValues}
+                validationSchema = {formValidation}
+                onSubmit={(values: string) => setid(values) }
+            /></div>)
 }
