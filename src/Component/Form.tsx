@@ -7,7 +7,7 @@ export const MyReactComponent = () => {
 const [myconfig1,setmyconfig1] = useState(myconfig)
   const myInitialValues = [{ myTextField: 10 }]
   const pios = [{ valueKey: "hs" }]
-  const setid = (idx: string): void => {
+  const set= (idx: string): void => {
     console.log(idx)
     console.log(myconfig)
     myconfig.values = { ...myconfig, myTextField: 12 };
@@ -24,6 +24,6 @@ const [myconfig1,setmyconfig1] = useState(myconfig)
         myInitialValues={myInitialValues}
         validationSchema={formValidation}
         values={p}
-        onSubmit={(values: string) => setid(values)}
+        onSubmit={(values: string) => set(values)}
       /></div>)
 }
