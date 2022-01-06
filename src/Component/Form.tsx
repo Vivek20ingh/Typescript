@@ -33,20 +33,21 @@ const Form = () => {
 
   const [object, setobject] = useState<types.Person>(Person);
 
-  const handleSubmit = async (values: types.Person, actions): void => {
+  const handleSubmit =  (values: types.Person, actions): void => {
 
-    await (()=>{
+   
       setobject({...object, unique_id: "", name: values.name, city: values.city, age: values.age })
-    })
+   
 
 
     addnote(object);
     console.log(object);
     //setobject({ unique_id: "", name: values.name, city: "", age: 5 })
-    //actions.setSubmitting(false);
+   
     setobject({ unique_id: "", name: values.name, city: values.city, age: values.age })
 
     console.log(object);
+     actions.setSubmitting(false);
 
 
   }
