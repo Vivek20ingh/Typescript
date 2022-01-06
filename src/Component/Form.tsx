@@ -33,10 +33,10 @@ const Form = () => {
   const [object, setobject] = useState<types.Person>(Person);
 
   const handleSubmit = (values: object,actions): void => {
-    object.name=values.name;
-    object.city=values.city;
-    object.age=values.age;
-    setobject({...object,values})
+    // object.name=values.name;
+    // object.city=values.city;
+    // object.age=values.age;
+    setobject({...object,name:values.name})
    
     addnote(object );
     console.log(object);
