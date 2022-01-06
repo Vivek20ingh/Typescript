@@ -21,7 +21,8 @@ const Form = () => {
   const myConfig = [{
     type: 'text',
     valueKey: 'name',
-    fieldProps: { label: 'Sample Text name', fullWidth: true },
+    fieldProps: { 
+      setlabel: 'Sample Text name', fullWidth: true },
   },
   {
     type: 'text',
@@ -35,20 +36,27 @@ const Form = () => {
   }
   ]
 
-  const Person = { unique_id: "", name: "", city: "", age: 0 }
+  const Person = { unique_id: "", name: "hj", city: "", age: 0 }
   const { list, addnote, updatenote, setpopup, setid } = useContext(APPtx)
 
   const [object, setobject] = useState<types.Person>(Person);
 
-  const handleSubmit = (values: object): void => {
+  const handleSubmit = (values: object,actions): void => {
     object.name=values.name;
     object.city=values.city;
     object.age=values.age;
-    // setobject({...object,values})
-    setobject(object);
-    addnote(object);
-    setobject(Person)
+    setobject({...object,values})
+   
+    addnote(object );
     console.log(object);
+    // object.unique_id="";
+    // object.name="";
+    // object.city="";
+    object.age=0;
+    
+    setobject({ unique_id: "", name: "", city: "", age: 0 })
+    
+    actions.setSubmitting(false);
   }
 
   const handleDelete = (idx: string): void => {
@@ -58,11 +66,18 @@ const Form = () => {
 
   const handleUpdate = (idx: string,): void => {
     let newidx = list.findIndex(obj => obj.unique_id === idx);
+    object.unique_id=list[newidx].unique_id;
+    object.name=list[newidx].name;
+    object.city=list[newidx].city;
+    object.age=list[newidx].age;
+
     setobject({ unique_id: idx, name: list[newidx].name, city: list[newidx].city, age: list[newidx].age })
 
   }
 
-  const handleEdit = (): void => {
+  const handleEdit = (values): void => {
+    console.log(object);
+    console.log("heyyy")
     updatenote(object)
     setobject(Person)
   }
@@ -74,8 +89,9 @@ const Form = () => {
       <ReactForm
         config={myConfig}
 
-        // initialValues={[{ myTextField: '6' }, { myTextField2: '12' }]}
-        onSubmit={object.unique_id == "" ? (values: object) => handleSubmit(values) : () => handleEdit()} 
+        initialValues={object}
+     
+        onSubmit={object.unique_id == "" ? (values: object,actions) => handleSubmit(values,actions) : (values:object) => handleEdit(values)} 
 
       />
       <ConfirmDialog />
