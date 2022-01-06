@@ -6,6 +6,7 @@ import Listview from './Listview'
 import * as types from './Context/Context'
 import ConfirmDialog from "./ConfirmDialog";
 import { APPtx } from './Context/Context'
+import { action } from "easy-peasy";
 
 const Form = () => {
 
@@ -28,28 +29,14 @@ const Form = () => {
   }
   ]
 
-  const Person = { unique_id: "", name: "hj", city: "", age: 0 }
+  const Person = { unique_id: "", name: "", city: "", age: 0 }
   const { list, addnote, updatenote, setpopup, setid } = useContext(APPtx)
-
   const [object, setobject] = useState<types.Person>(Person);
-
-  const handleSubmit =  (values: types.Person, actions): void => {
-
-   
-      setobject({...object, unique_id: "", name: values.name, city: values.city, age: values.age })
-   
-
-
-    addnote(object);
-    console.log(object);
-    //setobject({ unique_id: "", name: values.name, city: "", age: 5 })
-   
-    setobject({ unique_id: "", name: values.name, city: values.city, age: values.age })
-
-    console.log(object);
-     actions.setSubmitting(false);
-
-
+  const handleSubmit = (values: types.Person, actions): void => {
+    addnote(values);
+    setobject({ unique_id: "", name: "", city: "", age: 0 })
+    actions.setSubmitting(false);
+    actions.resetForm();
   }
 
   const handleDelete = (idx: string): void => {
@@ -59,40 +46,28 @@ const Form = () => {
 
   const handleUpdate = (idx: string,): void => {
     let newidx = list.findIndex(obj => obj.unique_id === idx);
-    setobject({ unique_id: idx, name: list[newidx].name, city: list[newidx].city, age: list[newidx].age })
-
-  }
+    setobject({ unique_id: idx, name: list[newidx].name, city: list[newidx].city, age: list[newidx].age })}
 
   const handleEdit = (values): void => {
-    // console.log(object);
-    // console.log("heyyy")
-    updatenote(object)
+    updatenote(values)
     setobject(Person)
   }
 
-  return (
 
+  return (
 
     <div className="split left">
       <ReactForm
         config={myConfig}
         initialValues={object}
+        enableReinitialize
         onSubmit={object.unique_id == "" ? (values: types.Person, actions) => handleSubmit(values, actions) : (values: object) => handleEdit(values)}
       />
       <ConfirmDialog />
       <Listview handleDelete={handleDelete} handleUpdate={handleUpdate} />
     </div>
-
-
-
-
   );
 }
 
 export default Form
 
-
-
-
-
-// const myInitialValues = [{ myTextField : 'c' }]
