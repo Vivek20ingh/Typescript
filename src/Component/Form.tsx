@@ -43,7 +43,7 @@ const Form = () => {
     // object.unique_id="";
     // object.name="";
     // object.city="";
-    object.age=0;
+    // object.age=0;
     
     setobject({ unique_id: "", name: "", city: "", age: 0 })
     
@@ -67,8 +67,8 @@ const Form = () => {
   }
 
   const handleEdit = (values): void => {
-    console.log(object);
-    console.log("heyyy")
+    // console.log(object);
+    // console.log("heyyy")
     updatenote(object)
     setobject(Person)
   }
@@ -81,7 +81,6 @@ const Form = () => {
         config={myConfig}
         initialValues={object}
         onSubmit={object.unique_id == "" ? (values: object,actions) => handleSubmit(values,actions) : (values:object) => handleEdit(values)} 
-
       />
       <ConfirmDialog />
       <Listview handleDelete={handleDelete} handleUpdate={handleUpdate} />
