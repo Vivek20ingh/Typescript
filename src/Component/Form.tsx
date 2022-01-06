@@ -9,15 +9,6 @@ import { APPtx } from './Context/Context'
 
 const Form = () => {
 
-  // type xyz = [{
-  //   type: string,
-  //   valueKey: string,
-  //   fieldProps: {
-  //     label: String,
-  //     fullWidth: Boolean,
-  //   }
-
-  // }]
   const myConfig = [{
     type: 'text',
     valueKey: 'name',
@@ -88,9 +79,7 @@ const Form = () => {
     <div className="split left">
       <ReactForm
         config={myConfig}
-
         initialValues={object}
-     
         onSubmit={object.unique_id == "" ? (values: object,actions) => handleSubmit(values,actions) : (values:object) => handleEdit(values)} 
 
       />
