@@ -17,12 +17,13 @@ const Item = styled(Paper)(({ theme }) => ({
     color: theme.palette.text.secondary,
 }));
 
-const Listview = ({ handleDelete, handleUpdate }) => {
+const Listview = ({ handleDelete, handleUpdate, handleSubmit }) => {
 
     const {list}= useContext(APPtx)
     
     return (
         <div className="split right">
+            <button onClick={() => handleSubmit() }>Sumbit</button>
             <Box sx={{ width: '100%' }}>
                 {list.map((d, idx) =>
                     <Grid key={d.unique_id} container rowSpacing={1} columnSpacing={1}>
