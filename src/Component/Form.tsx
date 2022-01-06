@@ -12,8 +12,9 @@ const Form = () => {
   const myConfig = [{
     type: 'text',
     valueKey: 'name',
-    fieldProps: { 
-      setlabel: 'Sample Text name', fullWidth: true },
+    fieldProps: {
+      setlabel: 'Sample Text name', fullWidth: true
+    },
   },
   {
     type: 'text',
@@ -32,22 +33,22 @@ const Form = () => {
 
   const [object, setobject] = useState<types.Person>(Person);
 
-  const handleSubmit = (values: object,actions): void => {
-    // object.name=values.name;
-    // object.city=values.city;
-    // object.age=values.age;
-    setobject({...object,name:values.name})
-   
-    addnote(object );
+  const handleSubmit = async (values: types.Person, actions): void => {
+
+    await (()=>{
+      setobject({...object, unique_id: "", name: values.name, city: values.city, age: values.age })
+    })
+
+
+    addnote(object);
     console.log(object);
-    // object.unique_id="";
-    // object.name="";
-    // object.city="";
-    // object.age=0;
-    
-    setobject({ unique_id: "", name: "", city: "", age: 0 })
-    
-    actions.setSubmitting(false);
+    //setobject({ unique_id: "", name: values.name, city: "", age: 5 })
+    //actions.setSubmitting(false);
+    setobject({ unique_id: "", name: values.name, city: values.city, age: values.age })
+
+    console.log(object);
+
+
   }
 
   const handleDelete = (idx: string): void => {
@@ -57,11 +58,6 @@ const Form = () => {
 
   const handleUpdate = (idx: string,): void => {
     let newidx = list.findIndex(obj => obj.unique_id === idx);
-    object.unique_id=list[newidx].unique_id;
-    object.name=list[newidx].name;
-    object.city=list[newidx].city;
-    object.age=list[newidx].age;
-
     setobject({ unique_id: idx, name: list[newidx].name, city: list[newidx].city, age: list[newidx].age })
 
   }
@@ -80,7 +76,7 @@ const Form = () => {
       <ReactForm
         config={myConfig}
         initialValues={object}
-        onSubmit={object.unique_id == "" ? (values: object,actions) => handleSubmit(values,actions) : (values:object) => handleEdit(values)} 
+        onSubmit={object.unique_id == "" ? (values: types.Person, actions) => handleSubmit(values, actions) : (values: object) => handleEdit(values)}
       />
       <ConfirmDialog />
       <Listview handleDelete={handleDelete} handleUpdate={handleUpdate} />
