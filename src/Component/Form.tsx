@@ -30,16 +30,15 @@ const Form = () => {
         setobject(Person)
     }
 
-    const handleDelete = (idx: string): void => {
-        setpopup(true);
-        setid(idx);
-    }
+    // const handleDelete = (idx: string): void => {
+    //     setpopup(true);
+    //     setid(idx);
+    // }
 
-    const handleUpdate = (idx: string,): void => {
-        let newidx = list.findIndex(obj => obj.unique_id === idx);
-        setobject({ unique_id: idx, name: list[newidx].name, city: list[newidx].city, age: list[newidx].age })
-
-    }
+    // const handleUpdate = (idx: string,): void => {
+    //     let newidx = list.findIndex(obj => obj.unique_id === idx);
+    //     setobject({ unique_id: idx, name: list[newidx].name, city: list[newidx].city, age: list[newidx].age })
+    // }
 
     const handleEdit = (): void => {
         updatenote(object)
@@ -94,14 +93,17 @@ const Form = () => {
                     </Button>
                 </div>
             </Box>
-            
-            <ConfirmDialog />
-            <Listview handleDelete={handleDelete} handleUpdate={handleUpdate} />
+            <ConfirmDialog/>  
+
+            <Listview /> 
+
         </div>
     );
 }
 
 export { Form };
+
+{/* handleDelete={handleDelete} handleUpdate={handleUpdate}/ */}
 
 
 

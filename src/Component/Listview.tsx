@@ -7,6 +7,7 @@ import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Button from '@mui/material/Button';
 import { useStoreState } from '../easy_peasy/store'
+import {  useStoreActions } from '../easy_peasy/store'
 
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -16,9 +17,20 @@ const Item = styled(Paper)(({ theme }) => ({
     color: theme.palette.text.secondary,
 }));
 
-const Listview = ({ handleDelete, handleUpdate }) => {
-
+const Listview = () => {
+    const setpopup = useStoreActions((actions) => actions.setpopup);
+    const setid = useStoreActions((actions) => actions.setid);
     const list = useStoreState((state) => state.list);
+    const handleDelete = (idx: string): void => {
+        setpopup(true);
+        setid(idx);
+    }
+
+    const handleUpdate = (idx: string,): void => {
+        let newidx = list.findIndex(obj => obj.unique_id === idx);
+       // setobject({ unique_id: idx, name: list[newidx].name, city: list[newidx].city, age: list[newidx].age })
+    }
+
     return (
 
         <div className="split right">

@@ -1,6 +1,5 @@
 import { action } from "easy-peasy";
 import shortid from "shortid";
-
 import * as types from './types'
 
 const model: types.Actionlist = {
